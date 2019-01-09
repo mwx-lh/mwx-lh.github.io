@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>《逗比世界》排行榜，VIP墓地</title>
+<!--全局CSS-->
+<link rel="stylesheet" type="text/css" href="../css/global.css" />
+<script>
+function searchSubmit()
+{
+    window.location.href = 'tomb_detail.gdo?name=' + encodeURIComponent(document.getElementById("searchText").value);
+}
+
+</script>
+</head>
+<body>
+
+<!--
+<div id="bg_right">
+</div>
+-->
+<div id="content">
+
+<div class="back">
+<a href="../page.html">返回游戏</a>
+<a href="http://msgjug.com">返回主页</a>
+<a href="tombs.gdo">返回墓地</a>
+</div>
+
+<div class="nav" >
+<div style="float:right;">
+<table><tr><td><input id="searchText" type="text" value="" style="height:30px;padding:0;margin:0;" /></td>
+<td><a href="#" onclick="searchSubmit()" ><img src="http://msgjug.com/p_life/image/search.png" /></a></td></tr></table>
+</div>
+
+<table>
+<tr>
+    <td>
+        <span style="font-size:1.8em;">
+        逗比世界排行榜（先行版）
+        </span>
+    </td>
+</tr>
+<tr>
+<td style="color:#092">
+Powered by <a href="http://www.fastdo.cc/" target="_blank" style="font-family:Arial;color:#777;font-weight:bold;font-size:1.2em;">FastDo</a>
+</td>
+</tr>
+</table>
+</div>
+
+<!-- rank -->
+
+<table width="100%">
+<tr>
+
+<td>
+    <div class="rank">
+    <p style="margin: 0 0; margin-top:-30px; padding: 4px 0;">成就值最高</p>
+    
+        <table width="100%">
+
+            <tr>
+            <td>1</td>
+            <td><a href="tomb_detail.gdo?name=%E8%93%9D%E8%8E%93%E9%85%B1">蓝莓酱</a> <span class="lowL">成就值54</span></td>
+            </tr>
+
+            <tr>
+            <td>2</td>
+            <td><a href="tomb_detail.gdo?name=%E9%BB%91%E6%A4%92%E9%85%B1">黑椒酱</a> <span class="lowL">成就值54</span></td>
+            </tr>
+
+            <tr>
+            <td>3</td>
+            <td><a href="tomb_detail.gdo?name=%E5%A9%A6%E5%A5%B3%E8%A7%A3%E6%94%BE">婦女解放</a> <span class="lowL">成就值52</span></td>
+            </tr>
+
+            <tr>
+            <td>4</td>
+            <td><a href="tomb_detail.gdo?name=%E9%92%B0%E6%B5%A3">钰浣</a> <span class="lowL">成就值51</span></td>
+            </tr>
+
+            <tr>
+            <td>5</td>
+            <td><a href="tomb_detail.gdo?name=%E8%B0%A2%E6%98%8E%E6%98%8A">谢明昊</a> <span class="lowL">成就值51</span></td>
+            </tr>
+
+            <tr>
+            <td>6</td>
+            <td><a href="tomb_detail.gdo?name=%E5%86%B7%E9%A3%8E%E9%85%B1">冷风酱</a> <span class="lowL">成就值51</span></td>
+            </tr>
+
+            <tr>
+            <td>7</td>
+            <td><a href="tomb_detail.gdo?name=%E5%8F%B6%E4%B8%8D%E4%BF%AE%E9%85%B1">叶不修酱</a> <span class="lowL">成就值51</span></td>
+            </tr>
+
+            <tr>
+            <td>8</td>
+            <td><a href="tomb_detail.gdo?name=%E5%88%98%E9%86%92%E2%99%82">刘醒♂</a> <span class="lowL">成就值51</span></td>
+            </tr>
+
+            <tr>
+            <td>9</td>
+            <td><a href="tomb_detail.gdo?name=ehbgd">ehbgd</a> <span class="lowL">成就值51</span></td>
+            </tr>
+
+            <tr>
+            <td>10</td>
+            <td><a href="tomb_detail.gdo?name=%E8%96%84%E5%BA%B7%E9%9B%AA">薄康雪</a> <span class="lowL">成就值50</span></td>
+            </tr>
+
+            <tr>
+            <td>11</td>
+            <td><a href="tomb_detail.gdo?name=%E6%9D%8E%E7%99%BD%E7%99%BD666">李白白666</a> <span class="lowL">成就值48</span></td>
+            </tr>
+
+            <tr>
+            <td>12</td>
+            <td><a href="tomb_detail.gdo?name=%E5%BA%A6%E5%81%87%E6%9D%91%E5%9F%BA%E7%A1%80%E8%A7%A3%E7%B3%BB">度假村基础解系</a> <span class="lowL">成就值48</span></td>
+            </tr>
+
+            <tr>
+            <td>13</td>
+            <td><a href="tomb_detail.gdo?name=%E7%A8%B2%E5%AD%90">稲子</a> <span class="lowL">成就值48</span></td>
+            </tr>
+
+            <tr>
+            <td>14</td>
+            <td><a href="tomb_detail.gdo?name=hawkaoao">hawkaoao</a> <span class="lowL">成就值48</span></td>
+            </tr>
+
+            <tr>
+            <td>15</td>
+            <td><a href="tomb_detail.gdo?name=d">d</a> <span class="lowL">成就值48</span></td>
+            </tr>
+
+            <tr>
+            <td>16</td>
+            <td><a href="tomb_detail.gdo?name=IE%E5%97%AF%E6%96%AF%E8%AF%BA%E5%85%8B">IE嗯斯诺克</a> <span class="lowL">成就值48</span></td>
+            </tr>
+
+            <tr>
+            <td>17</td>
+            <td><a href="tomb_detail.gdo?name=IE%E5%97%AF%E6%96%AF%E8%AF%BA%E5%85%8B">IE嗯斯诺克</a> <span class="lowL">成就值48</span></td>
+            </tr>
+
+            <tr>
+            <td>18</td>
+            <td><a href="tomb_detail.gdo?name=%E5%B9%B3%E6%99%82%E8%A5%BF%E9%96%80%E6%85%B6%E9%A8%B7%E5%AF%86%E7%A2%BC">平時西門慶騷密碼</a> <span class="lowL">成就值48</span></td>
+            </tr>
+
+            <tr>
+            <td>19</td>
+            <td><a href="tomb_detail.gdo?name=%E8%BE%A3%E6%A4%92%E9%85%B1">辣椒酱</a> <span class="lowL">成就值48</span></td>
+            </tr>
+
+            <tr>
+            <td>20</td>
+            <td><a href="tomb_detail.gdo?name=%E5%B0%8F%E4%BA%8B%E7%83%A7%E7%BA%B8+%E5%A4%A7%E4%BA%8B">小事烧纸&nbsp;大事</a> <span class="lowL">成就值47</span></td>
+            </tr>
+
+            <tr>
+            <td>21</td>
+            <td><a href="tomb_detail.gdo?name=%E6%B7%B7%E4%B9%B1%E5%B1%9E%E6%80%A7%E7%9A%84%E7%8E%A9%E5%AE%B6">混乱属性的玩家</a> <span class="lowL">成就值47</span></td>
+            </tr>
+
+            <tr>
+            <td>22</td>
+            <td><a href="tomb_detail.gdo?name=%E9%9D%9E%E5%87%A1%E5%93%A5%E2%99%82">非凡哥♂</a> <span class="lowL">成就值47</span></td>
+            </tr>
+
+            <tr>
+            <td>23</td>
+            <td><a href="tomb_detail.gdo?name=%E7%A5%9E%E9%BE%99%E6%9C%89%E6%AF%92">神龙有毒</a> <span class="lowL">成就值46</span></td>
+            </tr>
+
+            <tr>
+            <td>24</td>
+            <td><a href="tomb_detail.gdo?name=%E9%98%BF%E9%BE%99%E4%B8%BF">阿龙丿</a> <span class="lowL">成就值46</span></td>
+            </tr>
+
+            <tr>
+            <td>25</td>
+            <td><a href="tomb_detail.gdo?name=%E7%A5%9E%E9%BE%99%E6%88%91%E7%88%B1%E4%BD%A0">神龙我爱你</a> <span class="lowL">成就值46</span></td>
+            </tr>
+
+            <tr>
+            <td>26</td>
+            <td><a href="tomb_detail.gdo?name=%E4%B8%BA%E4%BA%86%E9%BE%99%E7%8F%A0%E4%B8%83%E5%8F%B7">为了龙珠七号</a> <span class="lowL">成就值46</span></td>
+            </tr>
+
+            <tr>
+            <td>27</td>
+            <td><a href="tomb_detail.gdo?name=%E4%B8%89%E8%83%96">三胖</a> <span class="lowL">成就值46</span></td>
+            </tr>
+
+            <tr>
+            <td>28</td>
+            <td><a href="tomb_detail.gdo?name=%E8%90%BD%E5%8F%B6">落叶</a> <span class="lowL">成就值46</span></td>
+            </tr>
+
+            <tr>
+            <td>29</td>
+            <td><a href="tomb_detail.gdo?name=%E6%9D%A5%E5%BC%80%E9%BB%91">来开黑</a> <span class="lowL">成就值46</span></td>
+            </tr>
+
+            <tr>
+            <td>30</td>
+            <td><a href="tomb_detail.gdo?name=7%E9%BE%99%E7%8F%A0">7龙珠</a> <span class="lowL">成就值45</span></td>
+            </tr>
+
+        </table>
+
+    </div>
+</td>
+<td>
+    <div class="rank">
+    <p style="margin: 0 0; margin-top:-30px; padding: 4px 0;">最长寿</p>
+    
+        <table width="100%">
+
+            <tr>
+            <td>1</td>
+            <td><a href="tomb_detail.gdo?name=%E4%B8%9C%E6%96%B9%E4%B8%8D%E8%B4%A5%E6%88%98%E7%A5%9E">东方不败战神</a> <span class="lowL">108岁</span></td>
+            </tr>
+
+            <tr>
+            <td>2</td>
+            <td><a href="tomb_detail.gdo?name=%E7%9C%9F%E7%8E%8B%E5%A4%A9%E9%9B%A8">真王天雨</a> <span class="lowL">105岁</span></td>
+            </tr>
+
+            <tr>
+            <td>3</td>
+            <td><a href="tomb_detail.gdo?name=12484316">12484316</a> <span class="lowL">104岁</span></td>
+            </tr>
+
+            <tr>
+            <td>4</td>
+            <td><a href="tomb_detail.gdo?name=%E5%BE%88%E4%B9%85%E5%BE%88%E4%B9%85%E6%96%A4%E6%96%A4%E8%AE%A1%E8%BE%83">很久很久斤斤计较</a> <span class="lowL">104岁</span></td>
+            </tr>
+
+            <tr>
+            <td>5</td>
+            <td><a href="tomb_detail.gdo?name=Ieidbw">Ieidbw</a> <span class="lowL">104岁</span></td>
+            </tr>
+
+            <tr>
+            <td>6</td>
+            <td><a href="tomb_detail.gdo?name=%E9%AD%94%E5%A1%94%E5%A4%A7%E9%99%86">魔塔大陆</a> <span class="lowL">103岁</span></td>
+            </tr>
+
+            <tr>
+            <td>7</td>
+            <td><a href="tomb_detail.gdo?name=%E7%AE%80%E7%9B%B4%E4%BA%86%EF%BC%8Cbug">简直了，bug</a> <span class="lowL">103岁</span></td>
+            </tr>
+
+            <tr>
+            <td>8</td>
+            <td><a href="tomb_detail.gdo?name=%E7%8E%8B%E4%B8%89%E5%8D%81">王三十</a> <span class="lowL">103岁</span></td>
+            </tr>
+
+            <tr>
+            <td>9</td>
+            <td><a href="tomb_detail.gdo?name=%E6%9D%8E%E6%98%8A%E8%BE%BE">李昊达</a> <span class="lowL">103岁</span></td>
+            </tr>
+
+            <tr>
+            <td>10</td>
+            <td><a href="tomb_detail.gdo?name=%E8%B0%81%E7%94%A8%E6%88%91%E5%90%8D%E5%AD%97%E7%BB%99%E6%88%91%E5%84%BF">谁用我名字给我儿</a> <span class="lowL">102岁</span></td>
+            </tr>
+
+            <tr>
+            <td>11</td>
+            <td><a href="tomb_detail.gdo?name=%E6%88%91%E7%9A%84%E6%96%B0%E5%8F%B7%E7%A0%81">我的新号码</a> <span class="lowL">102岁</span></td>
+            </tr>
+
+            <tr>
+            <td>12</td>
+            <td><a href="tomb_detail.gdo?name=uchvb">uchvb</a> <span class="lowL">102岁</span></td>
+            </tr>
+
+            <tr>
+            <td>13</td>
+            <td><a href="tomb_detail.gdo?name=104%E2%80%A6%E2%80%A6">104……</a> <span class="lowL">102岁</span></td>
+            </tr>
+
+            <tr>
+            <td>14</td>
+            <td><a href="tomb_detail.gdo?name=%E6%89%93%E5%88%B0%E5%87%A0%E7%82%B9">打到几点</a> <span class="lowL">102岁</span></td>
+            </tr>
+
+            <tr>
+            <td>15</td>
+            <td><a href="tomb_detail.gdo?name=%E4%BB%80%E4%B9%88%E5%BD%93%E5%BD%93%E5%BD%93%E5%95%8A">什么当当当啊</a> <span class="lowL">101岁</span></td>
+            </tr>
+
+            <tr>
+            <td>16</td>
+            <td><a href="tomb_detail.gdo?name=%E5%93%88u%E4%B8%8D%E9%97%AE%E9%97%AE%E8%AE%A9%E5%A4%A7%E5%AE%B6">哈u不问问让大家</a> <span class="lowL">101岁</span></td>
+            </tr>
+
+            <tr>
+            <td>17</td>
+            <td><a href="tomb_detail.gdo?name=%E6%B1%89%E8%8D%89%E5%8F%A4%E5%9D%8A">汉草古坊</a> <span class="lowL">101岁</span></td>
+            </tr>
+
+            <tr>
+            <td>18</td>
+            <td><a href="tomb_detail.gdo?name=%E8%8B%8F%E6%9B%A6">苏曦</a> <span class="lowL">101岁</span></td>
+            </tr>
+
+            <tr>
+            <td>19</td>
+            <td><a href="tomb_detail.gdo?name=%E6%B5%AE%E6%B2%89%E4%BA%BA%E7%94%9F">浮沉人生</a> <span class="lowL">101岁</span></td>
+            </tr>
+
+            <tr>
+            <td>20</td>
+            <td><a href="tomb_detail.gdo?name=%E6%97%AD%E6%97%AD">旭旭</a> <span class="lowL">101岁</span></td>
+            </tr>
+
+            <tr>
+            <td>21</td>
+            <td><a href="tomb_detail.gdo?name=%E6%9D%A8%E5%86%AC%E6%A3%AE">杨冬森</a> <span class="lowL">100岁</span></td>
+            </tr>
+
+            <tr>
+            <td>22</td>
+            <td><a href="tomb_detail.gdo?name=%E6%B8%A3%E6%B8%A3%E7%81%B0%E9%83%BD%E6%AF%94%E4%BD%A0%E5%A4%A7">渣渣灰都比你大</a> <span class="lowL">100岁</span></td>
+            </tr>
+
+            <tr>
+            <td>23</td>
+            <td><a href="tomb_detail.gdo?name=%E5%90%8C%E4%BD%93toto%E5%93%9F">同体toto哟</a> <span class="lowL">100岁</span></td>
+            </tr>
+
+            <tr>
+            <td>24</td>
+            <td><a href="tomb_detail.gdo?name=%E9%BE%99%E9%9C%B8">龙霸</a> <span class="lowL">100岁</span></td>
+            </tr>
+
+            <tr>
+            <td>25</td>
+            <td><a href="tomb_detail.gdo?name=%E6%9C%BD%E9%B8%A6">朽鸦</a> <span class="lowL">100岁</span></td>
+            </tr>
+
+            <tr>
+            <td>26</td>
+            <td><a href="tomb_detail.gdo?name=%E6%99%BA%E5%95%86%EF%BC%8C%E3%80%82">智商，。</a> <span class="lowL">100岁</span></td>
+            </tr>
+
+            <tr>
+            <td>27</td>
+            <td><a href="tomb_detail.gdo?name=%E5%87%89%E5%87%89x">凉凉x</a> <span class="lowL">100岁</span></td>
+            </tr>
+
+            <tr>
+            <td>28</td>
+            <td><a href="tomb_detail.gdo?name=James">James</a> <span class="lowL">100岁</span></td>
+            </tr>
+
+            <tr>
+            <td>29</td>
+            <td><a href="tomb_detail.gdo?name=Eli">Eli</a> <span class="lowL">99岁</span></td>
+            </tr>
+
+            <tr>
+            <td>30</td>
+            <td><a href="tomb_detail.gdo?name=%E6%88%91%E6%98%AF%E7%9C%9F%E7%9A%84%E7%89%9B%E7%9A%AE">我是真的牛皮</a> <span class="lowL">99岁</span></td>
+            </tr>
+
+        </table>
+
+    </div>
+</td>
+
+<td>
+    <div class="rank">
+    <p style="margin: 0 0; margin-top:-30px; padding: 4px 0;">最多点赞</p>
+    
+        <table width="100%">
+
+            <tr>
+            <td>1</td>
+            <td><a href="tomb_detail.gdo?name=%E5%8D%A2%E6%9C%AC%E4%BC%9F">卢本伟</a> <span class="lowL">569</span></td>
+            </tr>
+
+            <tr>
+            <td>2</td>
+            <td><a href="tomb_detail.gdo?name=%E5%8D%A2%E6%9C%AC%E4%BC%9F">卢本伟</a> <span class="lowL">569</span></td>
+            </tr>
+
+            <tr>
+            <td>3</td>
+            <td><a href="tomb_detail.gdo?name=%E5%8D%A2%E6%9C%AC%E4%BC%9F">卢本伟</a> <span class="lowL">569</span></td>
+            </tr>
+
+            <tr>
+            <td>4</td>
+            <td><a href="tomb_detail.gdo?name=%E5%8D%A2%E6%9C%AC%E4%BC%9F">卢本伟</a> <span class="lowL">569</span></td>
+            </tr>
+
+            <tr>
+            <td>5</td>
+            <td><a href="tomb_detail.gdo?name=%E5%8D%A2%E6%9C%AC%E4%BC%9F">卢本伟</a> <span class="lowL">569</span></td>
+            </tr>
+
+            <tr>
+            <td>6</td>
+            <td><a href="tomb_detail.gdo?name=%E5%8D%A2%E6%9C%AC%E4%BC%9F">卢本伟</a> <span class="lowL">569</span></td>
+            </tr>
+
+            <tr>
+            <td>7</td>
+            <td><a href="tomb_detail.gdo?name=%E5%8D%A2%E6%9C%AC%E4%BC%9F">卢本伟</a> <span class="lowL">569</span></td>
+            </tr>
+
+            <tr>
+            <td>8</td>
+            <td><a href="tomb_detail.gdo?name=%E5%8D%A2%E6%9C%AC%E4%BC%9F">卢本伟</a> <span class="lowL">569</span></td>
+            </tr>
+
+            <tr>
+            <td>9</td>
+            <td><a href="tomb_detail.gdo?name=%E5%8D%A2%E6%9C%AC%E4%BC%9F">卢本伟</a> <span class="lowL">569</span></td>
+            </tr>
+
+            <tr>
+            <td>10</td>
+            <td><a href="tomb_detail.gdo?name=%E5%8D%A2%E6%9C%AC%E4%BC%9F">卢本伟</a> <span class="lowL">569</span></td>
+            </tr>
+
+            <tr>
+            <td>11</td>
+            <td><a href="tomb_detail.gdo?name=%E5%8D%A2%E6%9C%AC%E4%BC%9F">卢本伟</a> <span class="lowL">569</span></td>
+            </tr>
+
+            <tr>
+            <td>12</td>
+            <td><a href="tomb_detail.gdo?name=%E5%AF%90%E9%95%BF%E7%94%9F">寐长生</a> <span class="lowL">518</span></td>
+            </tr>
+
+            <tr>
+            <td>13</td>
+            <td><a href="tomb_detail.gdo?name=%E8%93%9D%E8%8E%93%E9%85%B1">蓝莓酱</a> <span class="lowL">437</span></td>
+            </tr>
+
+            <tr>
+            <td>14</td>
+            <td><a href="tomb_detail.gdo?name=%E8%BF%B7%E4%BD%A0%E4%B8%96%E7%95%8C">迷你世界</a> <span class="lowL">245</span></td>
+            </tr>
+
+            <tr>
+            <td>15</td>
+            <td><a href="tomb_detail.gdo?name=%E8%BF%B7%E4%BD%A0%E4%B8%96%E7%95%8C">迷你世界</a> <span class="lowL">245</span></td>
+            </tr>
+
+            <tr>
+            <td>16</td>
+            <td><a href="tomb_detail.gdo?name=%E8%BF%B7%E4%BD%A0%E4%B8%96%E7%95%8C">迷你世界</a> <span class="lowL">245</span></td>
+            </tr>
+
+            <tr>
+            <td>17</td>
+            <td><a href="tomb_detail.gdo?name=%E8%BF%B7%E4%BD%A0%E4%B8%96%E7%95%8C">迷你世界</a> <span class="lowL">245</span></td>
+            </tr>
+
+            <tr>
+            <td>18</td>
+            <td><a href="tomb_detail.gdo?name=%E7%8E%8B%E5%A2%83%E6%B3%BD">王境泽</a> <span class="lowL">176</span></td>
+            </tr>
+
+            <tr>
+            <td>19</td>
+            <td><a href="tomb_detail.gdo?name=%E8%80%81%E7%95%AA%E8%8C%84">老番茄</a> <span class="lowL">147</span></td>
+            </tr>
+
+            <tr>
+            <td>20</td>
+            <td><a href="tomb_detail.gdo?name=%E8%80%81%E7%95%AA%E8%8C%84">老番茄</a> <span class="lowL">147</span></td>
+            </tr>
+
+            <tr>
+            <td>21</td>
+            <td><a href="tomb_detail.gdo?name=%E8%80%81%E7%95%AA%E8%8C%84">老番茄</a> <span class="lowL">147</span></td>
+            </tr>
+
+            <tr>
+            <td>22</td>
+            <td><a href="tomb_detail.gdo?name=%E8%80%81%E7%95%AA%E8%8C%84">老番茄</a> <span class="lowL">147</span></td>
+            </tr>
+
+            <tr>
+            <td>23</td>
+            <td><a href="tomb_detail.gdo?name=%E8%80%81%E7%95%AA%E8%8C%84">老番茄</a> <span class="lowL">147</span></td>
+            </tr>
+
+            <tr>
+            <td>24</td>
+            <td><a href="tomb_detail.gdo?name=%E8%80%81%E7%95%AA%E8%8C%84">老番茄</a> <span class="lowL">147</span></td>
+            </tr>
+
+            <tr>
+            <td>25</td>
+            <td><a href="tomb_detail.gdo?name=%E8%80%81%E7%95%AA%E8%8C%84">老番茄</a> <span class="lowL">147</span></td>
+            </tr>
+
+            <tr>
+            <td>26</td>
+            <td><a href="tomb_detail.gdo?name=%E8%80%81%E7%95%AA%E8%8C%84">老番茄</a> <span class="lowL">147</span></td>
+            </tr>
+
+            <tr>
+            <td>27</td>
+            <td><a href="tomb_detail.gdo?name=%E8%80%81%E7%95%AA%E8%8C%84">老番茄</a> <span class="lowL">147</span></td>
+            </tr>
+
+            <tr>
+            <td>28</td>
+            <td><a href="tomb_detail.gdo?name=%E8%80%81%E7%95%AA%E8%8C%84">老番茄</a> <span class="lowL">147</span></td>
+            </tr>
+
+            <tr>
+            <td>29</td>
+            <td><a href="tomb_detail.gdo?name=%E8%80%81%E7%95%AA%E8%8C%84">老番茄</a> <span class="lowL">147</span></td>
+            </tr>
+
+            <tr>
+            <td>30</td>
+            <td><a href="tomb_detail.gdo?name=%E8%80%81%E7%95%AA%E8%8C%84">老番茄</a> <span class="lowL">147</span></td>
+            </tr>
+
+        </table>
+
+    </div>
+</td>
+
+</tr>
+</table>
+
+<div class="rank_bottom">
+<a href="tombs.gdo">返回墓地</a>
+</div>
+
+<!-- copyright;-->
+<div class="copyright" >
+
+    <li style="color:#070">
+            *这是一个全靠玩家贡献内容的游戏，所有的随机事件，都是由玩家贡献。<br />
+             如果你有新奇的想法，精彩/逗比的故事，或者对游戏有什么看法/意见，请不要保留，<a style="color:#095;font-size:15px;font-weight:bold;" href="../page_donate.html">点这里发给我们！</a></li>
+
+    <li>后台技术支持:<a href="http://www.fastdo.cc">FastDo</a></li>
+    <li>服务器支持:<a href="http://suncpp.com">suncpp.com</a></li>
+    <li>游戏主页:<a href="http://msgjug.com">msgjug</a></li>
+    逗比人生Doubi living Copyright(c) 2015-2016 WildPtr 保留所有权利 <br />
+    游戏内涉及的所有人物、事件、团体、国家等一切内容纯属虚构。<br />
+	
+	        <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1256035047'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/stat.php%3Fid%3D1256035047%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script> 
+	
+</div>
+
+</div>
+
+</body>
+
+</html>

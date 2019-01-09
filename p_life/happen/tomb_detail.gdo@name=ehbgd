@@ -1,0 +1,2241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>ehbgd的墓地</title>
+	<!--全局CSS-->
+	<link rel="stylesheet" type="text/css" href="../css/global.css" />
+	
+	<!--ajax-->
+	<script type='text/javascript' src='http://msgjug.com/js/marmottajax.min.js'></script>
+	<style type="text/css">
+		.highL {
+			border-radius: 15px;
+		}
+		
+		#share {
+			display: none;
+		}
+		
+		.goldTd a {
+			color: gold;
+		}
+	</style>
+
+<script>
+		function searchSubmit()
+		{
+			window.location.href = 'tomb_detail.gdo?name=' + encodeURIComponent(document.getElementById("searchText").value);
+		}
+		function vote( name )
+		{
+			var resFunc = function( strData )
+			{
+				if( strData[0] === "[" || strData[0] === "{")
+				{
+					var response = eval("("+ strData +")");
+					if( response.ret === 0 )
+					{
+						alert("点赞成功");
+						var label = document.getElementById("voteNum");
+						var loveNum = Number(label.innerHTML);
+						label.innerHTML = (++loveNum).toFixed(0);
+					}
+					else
+					{
+						alert(response.desc);
+					}
+				}
+				else
+				{
+					alert("网络错误，点赞失败。");
+				}
+			};
+			marmottajax({
+			url: "vote_case.gdo",
+			method: "GET",
+			parameters: { "name": name }
+			}).success(resFunc).error(resFunc);
+		};
+</script>
+
+	
+		<script src="../js/evtLib.js"> </script>
+		<script src="../js/goals.js"></script>
+    	<script src="../js/drawer.min.js"> </script>
+		<script>
+function NAMEreplacer(str,name)
+{
+	if(str === undefined)
+	{
+		return "";
+	}
+	while(str.indexOf("=NAME=") != -1)
+	{
+		str = str.replace(/=NAME=/,name);
+	}
+	return str;
+}
+function SEXreplacer(str,sex)
+{
+	if(str === undefined)
+	{
+		return "";
+	}
+	if(sex == "male")
+	{
+		while(str.indexOf("=SEX=") != -1)
+			str = str.replace(/=SEX=/,"男");
+		return str;
+	}
+	else
+	{
+		while(str.indexOf("=SEX=") != -1)
+			str = str.replace(/=SEX=/,"女");
+		return str;
+	}
+}
+function AGEreplacer(str,age)
+{
+	if(str === undefined)
+	{
+		return "";
+	}
+	while(str.indexOf("=AGE=") != -1)
+	{
+		str = str.replace(/=AGE=/,age);
+	}
+	return str;
+}
+
+function AffRTreplacer(aff,Title,Text)
+{
+	if(aff.title == "=INHERIT=")
+		aff.title = Title.replace(/___/,aff.btn);
+		
+	if(aff.text == "=INHERIT=")
+		aff.text = Text.replace(/___/,aff.btn);
+}
+
+function REPLACER(node,evt,selID,name,age,sex)
+{
+			{  //事件文字替换。
+				evt.text = NAMEreplacer(evt.text,name);
+				evt.text = SEXreplacer(evt.text,sex);
+				evt.text = AGEreplacer(evt.text,age);
+				
+				evt.title = NAMEreplacer(evt.title,name);
+				evt.title = SEXreplacer(evt.title,sex);
+				evt.title = AGEreplacer(evt.title,age);
+			}
+			{  //具体选项文字替换。
+				var affData = eval('(' + evt["aff"] + ')');
+				node.title = affData[ selID ]["title"];
+				node.text = affData[ selID ]["text"];
+				node.btn = affData[ selID ]["btn"];
+				
+				AffRTreplacer(node , evt.title,evt.text);
+				node.text = NAMEreplacer(node.text,name);
+				node.text = SEXreplacer(node.text,sex);
+				node.text = AGEreplacer(node.text,age);
+			
+				node.title = NAMEreplacer(node.title,name);
+				node.title = SEXreplacer(node.title,sex);
+				node.title = AGEreplacer(node.title,age);
+			}
+}
+
+
+//初始化死因，初始化生平。用作显示。
+var dataShow = {};
+dataShow.name  = "";
+dataShow.sex   = "";
+dataShow.age   = 0;
+dataShow.reason = {};
+
+dataShow.deadSay = "";
+dataShow.bgOffset = -150;
+dataShow.sexEng   = "male";
+
+dataShow.list    = [];
+dataShow.init = function(name,sex,age)
+{
+	dataShow.name = name;
+	dataShow.age  = age;
+	dataShow.sex  = sex;
+	var datas = EvtLib;
+	//死因初始化
+	var lifeRoadLast0 = 937;
+	var lifeRoadLast1 = 1;
+	for(var i=0;i<datas.length;i++)
+	{
+		if(datas[i].id == lifeRoadLast0 )
+		{
+			REPLACER(dataShow.reason,datas[i],lifeRoadLast1,name,age,sex);
+			datas.splice(i,1);
+			break;
+		}
+	}
+	
+	//生平初始化
+    
+    
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 654;
+			var index1 = 0;
+			var index2 = 0;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 10003;
+			var index1 = 0;
+			var index2 = 1;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 9;
+			var index1 = 1;
+			var index2 = 1;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 12;
+			var index1 = 0;
+			var index2 = 1;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 13;
+			var index1 = 4;
+			var index2 = 2;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 779;
+			var index1 = 0;
+			var index2 = 3;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1263;
+			var index1 = 3;
+			var index2 = 4;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 304;
+			var index1 = 4;
+			var index2 = 5;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 305;
+			var index1 = 0;
+			var index2 = 6;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 307;
+			var index1 = 0;
+			var index2 = 6;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 319;
+			var index1 = 4;
+			var index2 = 6;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 318;
+			var index1 = 2;
+			var index2 = 6;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 306;
+			var index1 = 2;
+			var index2 = 6;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 320;
+			var index1 = 2;
+			var index2 = 6;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 327;
+			var index1 = 1;
+			var index2 = 6;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 325;
+			var index1 = 2;
+			var index2 = 6;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 681;
+			var index1 = 0;
+			var index2 = 6;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 682;
+			var index1 = 0;
+			var index2 = 6;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 911;
+			var index1 = 1;
+			var index2 = 6;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 36;
+			var index1 = 2;
+			var index2 = 7;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 43;
+			var index1 = 0;
+			var index2 = 8;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 16;
+			var index1 = 1;
+			var index2 = 9;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 882;
+			var index1 = 4;
+			var index2 = 10;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 175;
+			var index1 = 3;
+			var index2 = 11;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 157;
+			var index1 = 0;
+			var index2 = 12;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 267;
+			var index1 = 3;
+			var index2 = 13;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 505;
+			var index1 = 0;
+			var index2 = 14;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 101;
+			var index1 = 1;
+			var index2 = 15;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 102;
+			var index1 = 0;
+			var index2 = 16;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 103;
+			var index1 = 0;
+			var index2 = 16;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 934;
+			var index1 = 0;
+			var index2 = 17;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 174;
+			var index1 = 1;
+			var index2 = 18;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 922;
+			var index1 = 2;
+			var index2 = 19;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 49;
+			var index1 = 1;
+			var index2 = 20;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 250;
+			var index1 = 3;
+			var index2 = 22;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 448;
+			var index1 = 0;
+			var index2 = 23;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 334;
+			var index1 = 4;
+			var index2 = 24;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 811;
+			var index1 = 1;
+			var index2 = 25;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 159;
+			var index1 = 1;
+			var index2 = 26;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 51;
+			var index1 = 1;
+			var index2 = 27;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 106;
+			var index1 = 1;
+			var index2 = 28;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 888;
+			var index1 = 0;
+			var index2 = 29;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 115;
+			var index1 = 0;
+			var index2 = 29;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1074;
+			var index1 = 0;
+			var index2 = 30;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1054;
+			var index1 = 2;
+			var index2 = 31;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1063;
+			var index1 = 2;
+			var index2 = 31;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1064;
+			var index1 = 1;
+			var index2 = 31;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1062;
+			var index1 = 1;
+			var index2 = 31;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1068;
+			var index1 = 0;
+			var index2 = 31;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 995;
+			var index1 = 0;
+			var index2 = 31;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1273;
+			var index1 = 0;
+			var index2 = 33;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 780;
+			var index1 = 0;
+			var index2 = 34;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 840;
+			var index1 = 0;
+			var index2 = 35;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 814;
+			var index1 = 2;
+			var index2 = 36;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1246;
+			var index1 = 0;
+			var index2 = 37;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 67;
+			var index1 = 0;
+			var index2 = 38;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1041;
+			var index1 = 4;
+			var index2 = 39;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 726;
+			var index1 = 0;
+			var index2 = 40;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 936;
+			var index1 = 0;
+			var index2 = 40;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1275;
+			var index1 = 1;
+			var index2 = 40;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1276;
+			var index1 = 1;
+			var index2 = 40;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 609;
+			var index1 = 2;
+			var index2 = 41;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 847;
+			var index1 = 2;
+			var index2 = 42;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1252;
+			var index1 = 0;
+			var index2 = 43;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 717;
+			var index1 = 3;
+			var index2 = 44;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 754;
+			var index1 = 0;
+			var index2 = 45;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 58;
+			var index1 = 3;
+			var index2 = 46;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 879;
+			var index1 = 0;
+			var index2 = 47;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 886;
+			var index1 = 0;
+			var index2 = 50;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 657;
+			var index1 = 2;
+			var index2 = 50;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 887;
+			var index1 = 0;
+			var index2 = 51;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 80;
+			var index1 = 1;
+			var index2 = 52;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 59;
+			var index1 = 0;
+			var index2 = 53;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1019;
+			var index1 = 0;
+			var index2 = 54;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 273;
+			var index1 = 0;
+			var index2 = 55;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1027;
+			var index1 = 3;
+			var index2 = 56;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 996;
+			var index1 = 0;
+			var index2 = 57;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 231;
+			var index1 = 0;
+			var index2 = 58;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 10002;
+			var index1 = 0;
+			var index2 = 59;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 107;
+			var index1 = 2;
+			var index2 = 59;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 469;
+			var index1 = 0;
+			var index2 = 60;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 470;
+			var index1 = 2;
+			var index2 = 61;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 474;
+			var index1 = 1;
+			var index2 = 61;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 489;
+			var index1 = 2;
+			var index2 = 61;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 473;
+			var index1 = 1;
+			var index2 = 61;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1078;
+			var index1 = 0;
+			var index2 = 61;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1077;
+			var index1 = 1;
+			var index2 = 62;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 475;
+			var index1 = 0;
+			var index2 = 63;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 476;
+			var index1 = 0;
+			var index2 = 63;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 548;
+			var index1 = 2;
+			var index2 = 63;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 108;
+			var index1 = 3;
+			var index2 = 64;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 233;
+			var index1 = 1;
+			var index2 = 65;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 998;
+			var index1 = 0;
+			var index2 = 66;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 236;
+			var index1 = 0;
+			var index2 = 67;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 997;
+			var index1 = 1;
+			var index2 = 69;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1002;
+			var index1 = 0;
+			var index2 = 70;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 235;
+			var index1 = 0;
+			var index2 = 71;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1001;
+			var index1 = 0;
+			var index2 = 73;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1000;
+			var index1 = 0;
+			var index2 = 74;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1211;
+			var index1 = 0;
+			var index2 = 75;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 944;
+			var index1 = 7;
+			var index2 = 75;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 1285;
+			var index1 = 0;
+			var index2 = 75;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+		for(var i=0;i<datas.length;i++)
+		{
+			var index0 = 937;
+			var index1 = 1;
+			var index2 = 76;
+			if(datas[i].id == index0 )
+			{
+				var affData = eval('(' + datas[i]["aff"] + ')');
+				var node = {};
+				node.age  = index2;
+				REPLACER(node,datas[i],index1,name,node.age,sex);
+				dataShow.list.push(node);
+				//datas.splice(i,1);
+				break;
+			}
+		}
+	
+	
+	//成就初始化
+	dataShow.goals = [];
+    
+    
+		{
+			var goalNode = {};
+			goalNode.title = Goals["9"][0]; 
+			goalNode.detail = NAMEreplacer( Goals["9"][1] , dataShow.name );
+			dataShow.goals.push(goalNode);
+		}
+	
+		{
+			var goalNode = {};
+			goalNode.title = Goals["18"][0]; 
+			goalNode.detail = NAMEreplacer( Goals["18"][1] , dataShow.name );
+			dataShow.goals.push(goalNode);
+		}
+	
+		{
+			var goalNode = {};
+			goalNode.title = Goals["16"][0]; 
+			goalNode.detail = NAMEreplacer( Goals["16"][1] , dataShow.name );
+			dataShow.goals.push(goalNode);
+		}
+	
+		{
+			var goalNode = {};
+			goalNode.title = Goals["17"][0]; 
+			goalNode.detail = NAMEreplacer( Goals["17"][1] , dataShow.name );
+			dataShow.goals.push(goalNode);
+		}
+	
+		{
+			var goalNode = {};
+			goalNode.title = Goals["7"][0]; 
+			goalNode.detail = NAMEreplacer( Goals["7"][1] , dataShow.name );
+			dataShow.goals.push(goalNode);
+		}
+	
+		{
+			var goalNode = {};
+			goalNode.title = Goals["37"][0]; 
+			goalNode.detail = NAMEreplacer( Goals["37"][1] , dataShow.name );
+			dataShow.goals.push(goalNode);
+		}
+	
+		{
+			var goalNode = {};
+			goalNode.title = Goals["30"][0]; 
+			goalNode.detail = NAMEreplacer( Goals["30"][1] , dataShow.name );
+			dataShow.goals.push(goalNode);
+		}
+	
+		{
+			var goalNode = {};
+			goalNode.title = Goals["49"][0]; 
+			goalNode.detail = NAMEreplacer( Goals["49"][1] , dataShow.name );
+			dataShow.goals.push(goalNode);
+		}
+	
+};
+
+dataShow.init( "ehbgd" , "男" , 76 );
+
+var onClickDrawLongPic = function()
+{
+	var drawer = new Drawer( dataShow, 450 );
+	var base64 = drawer.toDataURL("image/png");
+	var lifePic = document.getElementById("lifePic");
+	// lifePic.src = base64;
+	// window.open( base64 );
+
+	var div = document.createElement("div");
+	document.body.appendChild( div );
+	div.style.position = "absolute";
+	div.style.background = "black";
+	div.style.opacity = 0.5;
+	div.style.width = "100%";
+	div.style.height = "100%";
+	div.style.left = "0";
+	div.style.top = "0";
+
+	var lifeImg = new Image();
+	lifeImg.src = base64;
+	lifeImg.style["z-index"] = "10";
+	lifeImg.style.position = "absolute";
+	lifeImg.style.width = "450px";
+	lifeImg.style.height = "auto";
+	lifeImg.style.left = document.body.clientWidth/2 - 225 + "px";
+	lifeImg.style.top = "0";
+	document.body.appendChild( lifeImg );
+
+	var closeLifeImg = function() {
+		if( lifeImg ) {
+			document.body.removeChild( lifeImg );
+			lifeImg = null;
+		}
+		if( div ) {
+			document.body.removeChild( div );
+			div = null;
+		}
+	};
+	lifeImg.onclick = closeLifeImg;
+	div.onclick = closeLifeImg;
+};
+
+</script>
+
+		<style type="text/css">
+			#share {
+				display: normal;
+			}
+		</style>
+		 
+
+
+</head>
+
+<body>
+	<!--
+<div id="bg_right">
+</div>
+-->
+	<div id="content">
+		<div class="back">
+			<a href="../page.html">返回游戏</a>
+			<a href="tombs.gdo">返回墓地</a>
+			<a href="http://msgjug.com">返回主页</a>
+		</div>
+		<div class="nav">
+			<div style="text-align:left;float:right;width:217px;height:44px;background:url(../image/search2.png) no-repeat center;">
+				<input id="searchText" type="text" value="" style="color:white;height:44px;padding:0 1em 0 1em;margin:0;background:none;border:none;" />
+				<div onclick="searchSubmit();" style="width:31px;height:44px;position:relative;left:83%;top:-44px;"></div>
+			</div>
+			<!-- <div style="float:right;">
+				<table>
+					<tr>
+						<td><input id="searchText" type="text" value="" style="height:30px;padding:0;margin:0;" /></td>
+						<td>
+							<a href="#" onclick="searchSubmit()"><img src="http://msgjug.com/p_life/image/search.png" /></a>
+						</td>
+					</tr>
+				</table>
+			</div> -->
+			<table>
+				<tr>
+					<td><span style="font-size:1.8em;">逗比<script> document.write(dataShow.name); </script>的一生</span></td>
+				</tr>
+				<tr>
+					<td style="color:#092"> Powered by <a href="http://www.fastdo.cc/" target="_blank" style="font-family:Arial;color:#777;font-weight:bold;font-size:1.2em;">FastDo</a></td>
+				</tr>
+			</table>
+		</div>
+
+		<!-- rank -->
+		
+
+			<div style = "margin:0;padding:5px;background:#007344;color:#ccc" > <!-- 分享-->
+				<span style="font-size:25px;">分享角色功能</span>
+				<p>现在你可以生成你角色的生平图片，方便你跟亲朋好友分享你的角色。<br/>右键或长按可以保存图片。<a href="####" style="background: #cc0;font-size:20px;"onclick='onClickDrawLongPic()'>点击生成图片</a></p>
+			</div>
+		
+
+
+		<div class="rankD">
+			
+				<table width="100%">
+					<tr>
+						<td style="background:url(http://msgjug.com/p_life/image/rankD2.png) no-repeat center;height:93px;">
+							<div style="width:30px;height:80px; background:url(http://msgjug.com/p_life/image/male.png) no-repeat;background-position: -150px 0; margin:0 auto;padding:0;">
+							</div>
+						</td>
+						<!-- 左边球 -->
+						<td class="rank_top">
+							<li><span class="highL">姓名</span><script> document.write(dataShow.name); </script></li>
+							<li><span class="highL">男</span><script> document.write(dataShow.age); </script>岁 <span style="color:#055;"></span></li>
+						</td>
+						<!-- 右边名字岁数 -->
+					</tr>
+					<!-- 点赞 -->
+					<tr>
+						<td></td>
+						<td class="goldTd">
+							<!--vote -->
+
+							<a href="####" onclick="vote( dataShow.name );">
+								<table>
+									<tr>
+										<td>
+											<img id="voteImg" src="../image/love.gif" />
+										</td>
+										<td>
+											<span id="voteNum">0</span>人觉得很赞
+										</td>
+									</tr>
+								</table>
+							</a>
+							<!-- end of vote -->
+						</td>
+					</tr>
+					<!-- end of 上面。 -->
+					<tr style="height:40px;"></tr>
+
+
+
+					
+
+					<tr>
+						<td valign="top" align="right"><span class="highL" style="background:#6e4b00;color:#f8eb66">成就</span></td>
+						<td width="60%" class="goals">
+							<script>
+					for(var i=0;i<dataShow.goals.length;i++)
+					{
+						var output = '<li>'+dataShow.goals[i].title+'：<p class="goal_detail">'+dataShow.goals[i].detail+'</p></li>';
+						document.write( output );
+					}
+					</script>
+						</td>
+					</tr>
+					<!-- 成就层 -->
+
+
+
+					<tr>
+						<td valign="top" align="right"><span class="highL">墓志铭</span></td>
+						<td width="60%">
+							<p class="lowL">
+								
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td valign="top" align="right"><span class="highL">死因</span></td>
+						<td width="60%">
+							<p class="lowL">
+
+								<script>
+					document.write(dataShow.reason.text);
+				</script>
+							</p>
+						</td>
+					</tr>
+					<!-- 死因层 -->
+
+					<tr>
+						<td valign="top" align="right"><span class="highL">生平</span></td>
+						<td width="60%" style="text-align:left;">
+							<script>
+					for(var i=0;i<dataShow.list.length;i++)
+					{
+						var output = '<p class="lowL" style="margin:15px 0;"> <span class="highL" style="font-size:12px;padding:2px;background:#007344;">' + dataShow.list[i].age + '岁</span>'
+						 + dataShow.list[i].title + ' : ' + dataShow.list[i].text + '</p>';
+						document.write(output);
+					}
+				</script>
+						</td>
+					</tr>
+					<!-- 生平 -->
+
+				</table>
+				
+
+		</div>
+		<div class="rank_bottom">
+			<a href="tombs.gdo">返回墓地</a>
+		</div>
+
+
+		<!-- 分享-->
+		<div id="share" style="float : right;">
+			<div class="ds-share" data-thread-key="1" data-title="这是一个有关人生的游戏，《逗比人生》" data-content="在《逗比人生》中，ehbgd 享年76岁。"
+				data-images="http://msgjug.com/p_life/image/06.jpg" data-url="http://msgjug.com/p_life/happen/tomb_detail.gdo?name=ehbgd">
+				<div class="ds-share-inline">
+					<ul class="ds-share-icons-16">
+						<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+						<li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+						<li> <a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a> </li>
+						<li> <a class="ds-qq" href="javascript:void(0);" data-service="qq">QQ</a> </li>
+						<li> <a class="ds-renren" href="javascript:void(0);" data-service="renren">人人网</a> </li>
+						<li> <a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a> </li>
+						<li> <a class="ds-netease" href="javascript:void(0);" data-service="netease">网易微博</a> </li>
+						<li> <a class="ds-baidu" href="javascript:void(0);" data-service="baidu">百度</a> </li>
+						<li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+					</ul>
+					<div class="ds-share-icons-more"> </div>
+				</div>
+			</div>
+		</div>
+
+		<!-- copyright;-->
+		<div class="copyright">
+			<li style="color:#070"> *这是一个全靠玩家贡献内容的游戏，所有的随机事件，都是由玩家贡献。<br /> 如果你有新奇的想法，精彩/逗比的故事，或者对游戏有什么看法/意见，请不要保留，
+				<a style="color:#095;font-size:15px;font-weight:bold;" href="../page_donate.html">点这里发给我们！</a></li>
+			<li>后台技术支持:<a href="http://www.fastdo.cc">FastDo</a></li>
+			<li>服务器支持:<a href="http://suncpp.com">suncpp.com</a></li>
+			<li>游戏主页:<a href="http://msgjug.com">msgjug</a></li>
+			逗比人生Doubi living Copyright(c) 2015-2017 WildPtr 保留所有权利 <br /> 游戏内涉及的所有人物、事件、团体、国家等一切内容纯属虚构。
+			<br />
+
+			<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1256035047'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/stat.php%3Fid%3D1256035047%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
+
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,146 @@
+#content
+{
+    margin:0 auto;
+    color: #00d980;
+    text-align:center;
+}
+
+body
+{
+    background:#000;
+    /*background: #000 url(http://msgjug.com/p_life/image/rankBgL.png) repeat-y left;*/
+}
+
+.copyright
+{
+    font-size:0.9em;
+    margin-top:50px;
+    padding:10px;
+    width:100%;
+    border-top:dashed #222 1px;
+    text-align:center;
+    color:#444;
+    list-style-type:none;
+}
+.copyright a
+{
+    padding:5px;
+    margin:10px;
+    color:#666;
+}
+
+.nav
+{
+    padding:20px 10%;
+    border-bottom:1px #00d980 dashed;
+}
+
+.back a
+{
+    display:block;
+    background:#00d980;
+    color:black;
+    padding:5px;
+    margin:2px;
+}
+
+.back
+{
+    float:left;
+}
+
+/* Rank */
+.rankD
+{
+    padding:30px 0;
+    padding-top:52px;
+    width:350px;
+    margin:30px auto;
+    background: url(http://msgjug.com/p_life/image/rankD1.png) no-repeat top;
+    border-bottom:#00d980 solid 1px;
+}
+
+.rank
+{
+    padding:30px 0;
+    /*padding-top:52px;*/
+    width:350px;
+    margin:30px auto;
+    background:#007344;
+}
+
+.rank a
+{
+    color:#00d980;
+}
+
+.rank td
+{
+    background:black;
+}
+
+.highL
+{
+    padding:5px;
+    background:#00d980;
+    color:black;
+    border-radius:5px;
+    margin:5px;
+    text-weight:bold;
+}
+
+.lowL
+{
+    color:#007344;
+    font-size:0.9em;
+}
+
+.rank_top
+{
+    text-align:left;
+}
+
+.rank_top li
+{
+    margin:10px 0;
+    list-style-type:none;
+}
+
+.rank_bottom a
+{
+    color:#00d980;
+    font-size:20px;
+}
+
+.goal_node
+{
+	color:#f8eb66;
+	background:#6e4b00;
+	border-radius:20px;
+	padding:5px;
+	width:auto;
+}
+
+
+
+.goals
+{
+	list-style-image:url(../image/star.gif);
+	color:#f8eb66;
+}
+
+.goals li
+{
+	color:#f8eb66;
+	background:#6e4b00;
+	border-radius:10px;
+	padding:5px;
+	margin:10px 0;
+	width:auto;
+}
+
+.goal_detail
+{
+	font-size:12px;
+	text-align:left;
+}

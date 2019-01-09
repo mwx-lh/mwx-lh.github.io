@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>野指针实验室WildPtr->Lab《逗比人生》</title>
+
+<!--全局CSS-->
+<link rel="stylesheet" type="text/css" href="http://msgjug.com/css/glo.css">
+
+
+<style type="text/css" >
+
+.content
+{
+	margin:20px auto;
+	padding:50px;
+	background:black;
+	color:white;
+}
+form input
+{
+	margin: 5px 0;
+}
+
+.gFont
+{
+	color:#09f;
+	font-size:14px;
+}
+
+.grayFont
+{
+	color:#555;
+}
+
+.door a
+{
+	color:white;
+	border:1px solid white;
+	background:#222;
+	display:block;
+	padding:20px;
+	text-decoration: none;
+}
+
+.roleState
+{
+	overflow:auto;
+	height:350px;
+}
+
+.BGState
+{
+	overflow:auto;
+	height:350px;
+}
+
+.roleState li {
+	display: table-inline;
+	border: 1px white solid;
+	padding: 1px;
+	margin: 1px;
+	background: green;
+	color: white;
+	list-style-type:none;
+	text-align:center;
+}
+.BGState li {
+	display: block;
+	border: 1px white solid;
+	padding: 1px;
+	margin: 1px;
+	background: #760;
+	color: white;
+	text-align:center;
+}
+
+</style>
+
+
+<script src="js/evtLib.js"> </script>
+<script src="js/AffList.js"> </script>
+
+</head>
+
+
+<body>
+<div class="top_banner"></div>
+<div class="content" >
+
+<table width="100%">
+<tr>
+	<td width="50%">
+	<span class="gFont">
+	<p>这是一个全靠玩家贡献内容的游戏，所有的随机事件，都是由玩家贡献。</p>
+	<p>你有新奇的想法，精彩/逗比的故事，请不要保留，在下面的表格中填写内容，发给我们！</p>
+	<p>审核通过后，玩家将会有可能在游戏中碰到你的想法/故事。</p>
+	</span>
+
+	<form style="padding:50px; border:2px #09f dashed; margin:10px;" method="post" action="happen/donate.gdo" >
+	<span class="gFont">你的名字</span><input type="text" name="name" /> <span class="grayFont">(您的大名将会被写在游戏的制作者名单中)</span> <br />
+	<span class="gFont">QQ或E-mail</span><input type="text" name="email"/> <span class="grayFont">(留下联系方式，审核通过将会通知您)</span><br />
+	<span class="gFont">故事/想法</span><br/>
+	<textarea style="width:250px;height:150px;" name="text"></textarea> 
+	<input type="submit" value="发送"/> <input type="reset" value="重置" />
+	</form>
+	
+	<div class="door">
+	<table>
+	<tr>
+	<td><a href="page.html">返回游戏</a></td>
+	<td><a href="http://msgjug.com/">返回主页</a></td>
+	</tr>
+	</table>
+	</div>
+	
+	</td>
+
+	<td width="50%" style="border:dashed 2px #090;">
+	
+			<div style="border-bottom:dashed 2px #090;">
+				<h2>参考格式：</h2>
+				<ul>
+				<li>事件标题：</li>
+				<li>事件内容：</li>
+				<li><ul>选项：
+				
+				<li>选项A</li>
+				<li>选项B</li>
+				<li>...</li>
+				</ul>
+				</li>
+				<li>发生这个事件的条件，背景(可选)</li>
+				</ul>
+			</div>
+	
+	<h2>参考资料</h2>
+	<table width="100%">
+	<tr>
+	<td style="width:50%;">
+		游戏中现有的<人物特点>
+	<div class="roleState">
+		
+                    <script>
+					
+					if(AffList == null)
+					{
+						document.write("读取失败，请刷新页面");
+					}
+					for(var i=0;i<AffList.length;i++)
+					{
+						document.write('<li>');
+						document.write(AffList[i]);
+						document.write('</li>');
+					}
+					
+					</script> 
+	</div>
+	</td>
+	<td style="width:50%;">
+		游戏中现有的<背景>
+	<div class="BGState">
+
+                    <script>
+					
+					if(BGList == null)
+					{
+						document.write("读取失败，请刷新页面");
+					}
+					for(var i=0;i<BGList.length;i++)
+					{
+						document.write('<li>');
+						document.write(BGList[i]);
+						document.write('</li>');
+					}
+					
+					</script> 
+	</div>
+	</td>
+	</tr>
+	</table>
+	</td>
+</tr>
+</table>
+</div>
+<!--
+<iframe style="position:absolute;bottom:0px;" scrolling="no" frameborder="0" height="75px" width="100%" src="http://msgjug.com/footer.html"></iframe>
+-->
+</body>
+
+</html>

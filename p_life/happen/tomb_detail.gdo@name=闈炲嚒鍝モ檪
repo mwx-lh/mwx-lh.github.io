@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>闈炲嚒鍝モ檪的墓地</title>
+	<!--全局CSS-->
+	<link rel="stylesheet" type="text/css" href="../css/global.css" />
+	
+	<!--ajax-->
+	<script type='text/javascript' src='http://msgjug.com/js/marmottajax.min.js'></script>
+	<style type="text/css">
+		.highL {
+			border-radius: 15px;
+		}
+		
+		#share {
+			display: none;
+		}
+		
+		.goldTd a {
+			color: gold;
+		}
+	</style>
+
+<script>
+		function searchSubmit()
+		{
+			window.location.href = 'tomb_detail.gdo?name=' + encodeURIComponent(document.getElementById("searchText").value);
+		}
+		function vote( name )
+		{
+			var resFunc = function( strData )
+			{
+				if( strData[0] === "[" || strData[0] === "{")
+				{
+					var response = eval("("+ strData +")");
+					if( response.ret === 0 )
+					{
+						alert("点赞成功");
+						var label = document.getElementById("voteNum");
+						var loveNum = Number(label.innerHTML);
+						label.innerHTML = (++loveNum).toFixed(0);
+					}
+					else
+					{
+						alert(response.desc);
+					}
+				}
+				else
+				{
+					alert("网络错误，点赞失败。");
+				}
+			};
+			marmottajax({
+			url: "vote_case.gdo",
+			method: "GET",
+			parameters: { "name": name }
+			}).success(resFunc).error(resFunc);
+		};
+</script>
+
+	 
+
+
+</head>
+
+<body>
+	<!--
+<div id="bg_right">
+</div>
+-->
+	<div id="content">
+		<div class="back">
+			<a href="../page.html">返回游戏</a>
+			<a href="tombs.gdo">返回墓地</a>
+			<a href="http://msgjug.com">返回主页</a>
+		</div>
+		<div class="nav">
+			<div style="text-align:left;float:right;width:217px;height:44px;background:url(../image/search2.png) no-repeat center;">
+				<input id="searchText" type="text" value="" style="color:white;height:44px;padding:0 1em 0 1em;margin:0;background:none;border:none;" />
+				<div onclick="searchSubmit();" style="width:31px;height:44px;position:relative;left:83%;top:-44px;"></div>
+			</div>
+			<!-- <div style="float:right;">
+				<table>
+					<tr>
+						<td><input id="searchText" type="text" value="" style="height:30px;padding:0;margin:0;" /></td>
+						<td>
+							<a href="#" onclick="searchSubmit()"><img src="http://msgjug.com/p_life/image/search.png" /></a>
+						</td>
+					</tr>
+				</table>
+			</div> -->
+			<table>
+				<tr>
+					<td><span style="font-size:1.8em;">逗比<script> document.write(dataShow.name); </script>的一生</span></td>
+				</tr>
+				<tr>
+					<td style="color:#092"> Powered by <a href="http://www.fastdo.cc/" target="_blank" style="font-family:Arial;color:#777;font-weight:bold;font-size:1.2em;">FastDo</a></td>
+				</tr>
+			</table>
+		</div>
+
+		<!-- rank -->
+		
+
+
+		<div class="rankD">
+			
+					<p>查无此人</p>
+					
+
+		</div>
+		<div class="rank_bottom">
+			<a href="tombs.gdo">返回墓地</a>
+		</div>
+
+
+		<!-- 分享-->
+		<div id="share" style="float : right;">
+			<div class="ds-share" data-thread-key="1" data-title="这是一个有关人生的游戏，《逗比人生》" data-content="在《逗比人生》中， 享年岁。"
+				data-images="http://msgjug.com/p_life/image/06.jpg" data-url="http://msgjug.com/p_life/happen/tomb_detail.gdo?name=">
+				<div class="ds-share-inline">
+					<ul class="ds-share-icons-16">
+						<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+						<li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+						<li> <a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a> </li>
+						<li> <a class="ds-qq" href="javascript:void(0);" data-service="qq">QQ</a> </li>
+						<li> <a class="ds-renren" href="javascript:void(0);" data-service="renren">人人网</a> </li>
+						<li> <a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a> </li>
+						<li> <a class="ds-netease" href="javascript:void(0);" data-service="netease">网易微博</a> </li>
+						<li> <a class="ds-baidu" href="javascript:void(0);" data-service="baidu">百度</a> </li>
+						<li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+					</ul>
+					<div class="ds-share-icons-more"> </div>
+				</div>
+			</div>
+		</div>
+
+		<!-- copyright;-->
+		<div class="copyright">
+			<li style="color:#070"> *这是一个全靠玩家贡献内容的游戏，所有的随机事件，都是由玩家贡献。<br /> 如果你有新奇的想法，精彩/逗比的故事，或者对游戏有什么看法/意见，请不要保留，
+				<a style="color:#095;font-size:15px;font-weight:bold;" href="../page_donate.html">点这里发给我们！</a></li>
+			<li>后台技术支持:<a href="http://www.fastdo.cc">FastDo</a></li>
+			<li>服务器支持:<a href="http://suncpp.com">suncpp.com</a></li>
+			<li>游戏主页:<a href="http://msgjug.com">msgjug</a></li>
+			逗比人生Doubi living Copyright(c) 2015-2017 WildPtr 保留所有权利 <br /> 游戏内涉及的所有人物、事件、团体、国家等一切内容纯属虚构。
+			<br />
+
+			<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1256035047'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/stat.php%3Fid%3D1256035047%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
+
+		</div>
+	</div>
+</body>
+
+</html>

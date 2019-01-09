@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>野指针实验室WildPtr->Lab《逗比人生》</title>
+
+<style type="text/css">
+body
+{
+	background:black;
+	color:white;
+}
+input
+{
+	margin:5px 0;
+}
+.content
+{
+	width:650px;
+	margin:0 auto;
+}
+
+.table_left
+{
+	text-align:right;
+}
+
+.back
+{
+	width:100%;
+	background:#00d980;
+	color:white;
+	padding:8px;
+}
+.back a
+{
+	font-size:1.4em;
+	color:white;
+}
+
+</style>
+</head>
+
+
+<body>
+
+<!--
+    提交视频需要填写：
+    来源：
+    视频连接
+    图片地址：
+    日期：
+    UP主：
+    视频描述
+-->
+<div class="content">
+	<div>
+		<img src="image/movie_title.jpg" width="100%" />
+	</div>
+    <div class="back">
+	<a href="page.html">返回游戏</a>
+	<a href="happen/tombs.gdo">墓地</a>
+	<a href="http://msgjug.com">主页</a>
+	<a style="float:right;" href="#">视频投稿</a>
+	</div>
+	<form style="text-align:left;padding:20px;border:1px dashed #00d980;" method="post" action="happen/mgr_movie_upload.gdo" >
+	<h2 style="color:#00d980">视频提交</h2>
+
+	<table>
+		<tr>
+			<td class="table_left">标题</td>
+			<td><input type="text" value="" name="title" /> <span style="color:gray;">视频标题</span></td>
+		</tr>
+		<tr>
+			<td class="table_left">来源</td>
+			<td><input type="text" value="" name="source" /> <span style="color:gray;">Acfun/Bilibili/优酷/土豆/爱奇艺...</span></td>
+		</tr>
+		<tr>
+			<td class="table_left">视频链接</td>
+			<td><input type="text" value="" name="link" /></td>
+		</tr>
+		<tr>
+			<td class="table_left">UP主 </td>
+			<td><input type="text" value="" name="uper" /></td>
+		</tr>
+		<tr>
+			<td class="table_left">视频描述</td>
+			<td><textarea name="note" style="width:300px;height:300px;"></textarea></td>
+		</tr>
+	</table>
+	
+	<input type="submit" value="提交" style="font-size:1.2em;width:200px;height:30px;"/>
+	<input type="reset" value="重置"  style="font-size:1.2em;width:150px;height:30px;"/>
+	</form>
+</div>
+</body>
+
+</html>

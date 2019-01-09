@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>《逗比人生》野指针实验室WildPtr->Lab</title>
+
+<!-- include////////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- 360jq -->
+<!--
+<script type='text/javascript' src='http://ajax.useso.com/ajax/libs/jquery/1.7.2/jquery.min.js?ver=3.4.2'></script>
+-->
+
+<!-- local jq -->
+<script type='text/javascript' src='../js/jquery1_11_3_min.js'></script>
+
+<!-- 
+ mc jq
+<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+-->
+
+<!--全局CSS-->
+<link rel="stylesheet" type="text/css" href="http://666.msgjug.com/css/glo.css">
+
+<!-- 游戏CSS -->
+<link rel="stylesheet" type="text/css" href="css/global.css">
+
+<!-- include////////////////////////////////////////////////////////////////////////////////////////// -->
+
+<style type="text/css" >
+::-webkit-scrollbar {
+ width: 15px;
+} /* 这是针对缺省样式 (必须的) */
+
+::-webkit-scrollbar-track {
+ background-color: #003d24;
+} /* 滚动条的滑轨背景颜色 */
+
+	::-webkit-scrollbar-thumb {
+ background-color: #00d980;    /*rgba(0, 0, 0, 0.2); */
+} /* 滑块颜色 */
+
+	::-webkit-scrollbar-button {
+ background-color: #00d980;
+} /* 滑轨两头的监听按钮颜色 */
+
+	::-webkit-scrollbar-corner {
+ background-color: black;
+} /* 横向滚动条和纵向滚动条相交处尖角的颜色 */
+.content {
+	font-size:13px;
+	position: relative;
+	margin: 50px auto;
+	width: 80%;
+	padding: 50px;
+    text-align:left;
+}
+.aff_node {
+	text-align: center;
+	/*color:#002c24;*/
+	color: #00d980;
+	padding: 4px 0px;
+	width: 90%;
+	/*background-color:#00d980; */
+	border-radius: 20px;
+	border: 2px solid #00d980;
+	box-shadow: 0px 10px 0px #00673d;
+	margin: 5px auto 10px auto;
+}
+.aff_node li {
+	list-style-type: none;
+}
+.aff_node_s {
+	text-align: center;
+	color: #00d980;
+	border-radius: 20px;
+	padding: 4px 5px;
+	width: 90%;
+	border: 2px solid #00d980;
+	border-left: none;
+	margin: 5px auto 5px 0;
+}
+.aff_node_s li {
+	list-style-type: none;
+}
+.roleState li {
+	display: block;
+	border: 1px white solid;
+	padding: 1px;
+	margin: 1px;
+	background: green;
+	color: white;
+}
+.BGState li {
+	display: block;
+	border: 1px white solid;
+	padding: 1px;
+	margin: 1px;
+	background: #760;
+	color: white;
+}
+.GlowStr {
+	text-shadow: #000 1px 0 0, #000 0 1px 0, #000 -1px 0 0, #000 0 -1px 0;
+	-webkit-text-shadow: #000 1px 0 0, #000 0 1px 0, #000 -1px 0 0, #000 0 -1px 0;
+	-moz-text-shadow: #000 1px 0 0, #000 0 1px 0, #000 -1px 0 0, #000 0 -1px 0;
+ *filter: Glow(color=#000, strength=1);
+	font-size: 55px;
+	font-weight: bold;
+}
+.copyright {
+	margin-top: 50px;
+	padding: 10px;
+	width: 100%;
+	border-top: dashed #222 1px;
+	text-align: center;
+	color: #444;
+	list-style-type: none;
+}
+.copyright a {
+	padding: 5px;
+	margin: 10px;
+	color: #666;
+}
+.updateLog {
+	color: gray;
+	border: 1px dashed gray;
+	background: #053;
+	text-align: left;
+	border-radius: 20px;
+}
+.updateLog td {
+	background: black;
+}
+.ad {
+	text-align: center;
+}
+.tells {
+	color: #0fa;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+.tells li {
+	margin: 10px 0;
+}
+
+.menu a
+{
+  text-decoration:none;
+  color:white;
+}
+.menu_btn
+{
+  font-weight:bold;
+  font-size:2em;
+  
+  text-align:center;
+  
+  display:block;
+  border-radius:20px;
+  background:#00d980;
+  margin:20px auto;
+  width:80%;
+  line-height:55px;
+  -moz-box-shadow:0 8px #004e2e;
+  -webkit-box-shadow:0 8px #004e2e;
+  box-shadow:0 8px #004e2e;
+}
+
+.menu_btn2
+{
+  font-weight:bold;
+  font-size:1.2em;
+  text-align:center;
+  display:block;
+  background:#00d980;
+  -moz-box-shadow:0 8px #004e2e;
+  -webkit-box-shadow:0 8px #004e2e;
+  box-shadow:0 8px #004e2e;
+}
+
+.goals
+{
+	list-style-image:url(image/star.gif);
+}
+.planeform
+{
+	border:2px dashed #00d980;
+	border-radius:10px;
+	text-align : left;
+	padding: 20px 30px;
+}
+.planeform li
+{
+	text-align : left;
+	list-style-type : none;
+	line-height: 50px;
+	vertical-align:middle; 
+}
+.planeform li a
+{
+	color: #ccc;
+	font-size:15px;
+}
+</style>
+
+<script>
+//声明_czc对象:
+var _czc = _czc || [];
+//绑定siteid，请用您的siteid替换下方"XXXXXXXX"部分
+_czc.push(["_setAccount", "1256035047"]);
+</script>
+
+<script src="http://666.msgjug.com/p_life/js/evtLib.js"> </script>
+<script src="js/goals.js"> </script>
+<script src="js/Logic.js"> </script>
+<script src="js/updateLog.js"> </script>
+
+
+
+</head>
+
+<body>
+<div id="content" class="content">
+    <div id="vUImenu" style="padding:50px 0;text-align:center;display:none;"> <img src="http://666.msgjug.com/p_life/image/title.png" width="100%"/>
+        <table width="100%">
+		
+			<!-- <tr> -->
+			<!-- </tr> -->
+            <tr>
+				<td width="45%">
+					<ul class="planeform" width="100%">
+						<li>
+							<a target="_blank" href="http://666.msgjug.com/p_life/download/doubilivingoneyear.apk" ><img width="25px" src="image/android-icon.gif"/>安卓端下载 年度版(8.8mb)</a>
+						</li>
+						<li>
+							<a target="_blank" href="http://www.pgyer.com/AJww"><img width="25px" src="image/ios-icon.gif"/>苹果端下载 1.0版(7.5mb)</a>
+						</li>
+						<li>
+							<a target="_blank" href="http://666.msgjug.com/p_life/year/" ><img width="25px" src="image/h5-icon.gif"/>H5版本(更适合手机玩的网页版)</a>
+						
+						</li>
+						<!--
+						<td>
+							<div class="menu">
+								<a class="menu_btn2" style="background:gray;">
+								<table>
+									<tr>
+										<td><img src="image/winphone-icon.gif"/></td>
+										<td>虽然加了注释，但是人权机版本也一定会有的！！！！</td>
+									</tr>
+								</table>
+								</a>
+							</div>
+						</td>
+						-->
+					</ul>
+					<br/>
+					<div class="updateLog"> <span class="tells" >公告：
+                		<ul style="padding-right:0px;">
+						<li style="color:#ceff79;font-size:1em">2018-11-21的更新内容较多，可能会出现BUG，欢迎反馈。手机版将会等到更新内容稳定后同步更新。</li>
+						<li style="color:#ceff79;font-size:1em">逗比人生年度版0.922，<a href="http://666.msgjug.com/p_life/download/doubilivingoneyear.apk" style="color:#fc0">点这里下载。</a></li>
+						<li style="color:#ceff79;font-size:1em">现在在墓碑页面可以将角色的一生制作成一张长图，方便分享。</li>
+                        <li style="font-size:0.9em">Web交流群:<span style="color:#ceff79;">474336725</span> Web专家们讨论技术zhuangB的地方。</li>
+                        <li style="font-size:0.9em">玩家交流群: 327698979, 489545664, 490852866, 492751591, 498944120, 491189295</li>
+                        </ul>
+                        </span>
+                        <table width="100%">
+                            <span style="color:#0fa" >更新日志：</span> 
+                            <script>
+					
+					if(updateLog == null)
+					{
+						document.write("读取更新日志失败，请刷新页面");
+					}
+					for(var i=updateLog.length-1;i>=updateLog.length-4;i--)
+					{
+						document.write('<tr>');
+						document.write('<td>');
+						document.write(updateLog[i].time);
+						document.write('</td>');
+						document.write('<td>');
+						for(var j=0;j<updateLog[i].logs.length;j++)
+						{
+							document.write('<li style="margin-left:20px;">');
+							document.write(updateLog[i].logs[j]);
+							document.write("</li>");
+						}
+						document.write('</td>');
+						document.write('</tr>');
+					}
+					
+					</script> 
+                            <tr>
+                                <td></td>
+                                <td><a href="update_log.html">更多更新记录...</a></td>
+                            </tr>
+                        </table>
+                    </div>
+					
+				</td>
+                <td>
+				
+				<div class="menu">
+				<a href="#" onclick="game.changeState('game')" class="menu_btn">开始游戏</a>
+                <a href="happen/tombs.gdo" class="menu_btn">逗比世界墓地</a>
+                <a href="happen/rank.gdo" class="menu_btn">逗比排行榜</a>
+				<a href="page_goals.html" class="menu_btn" style="color:#f8e466;background:#980;-moz-box-shadow:0 8px #6e4b00;-webkit-box-shadow:0 8px #6e4b00;box-shadow:0 8px #6e4b00;">成就列表</a>
+				<a href="happen/movie.gdo" class="menu_btn">游戏视频</a>
+                <a href="staff.html" class="menu_btn">制作人员名单</a>
+				<a href="http://msgjug.com" class="menu_btn">返回主页</a>
+				<a style="color:#00d980;font-size:15px; text-decoration:none;" href="#" onclick="AddFavorite()">请收藏本站，关注更多有意思的游戏。(^o^)//</a>
+				</div>
+				</td>
+            </tr>
+        </table>
+        <span style="color:gray;"> *使用Chrome等支持webkit的浏览器，可以获得最好的游戏体验。<br/>
+        </span> </div>
+    <div id="vUIover" style="display:none;padding:50px;color:#00d980;font-size:14px;">
+        <table>
+            <tr>
+                <td width="250px"><!-- 轨迹 -->
+                    
+                    <div id="overLeft" style="border-left:3px #00d980 dashed; text-align:center;overflow:auto;height:500px;"> </div>
+                    
+                    <!-- 原死因 --></td>
+                <td><div style="background:url(http://666.msgjug.com/p_life/image/dead.png) no-repeat; width:264px; height:176px;" > </div>
+                    <div id="overLeftTop"> 
+                        <!-- 死因 --> 
+                    </div>
+                    <h2><span id="overName"></span>去世了。<br/>
+                        <br/>
+                    </h2>
+                    在墓碑上刻上墓志铭(最多16个字):
+                    <input type="text" id="deadSay" onkeyup="this.value=this.value.replace(/[/W]/g,'');" maxLength=16 />
+                    <br/>
+                    
+                    <!-- 
+			<table border="1px;">
+			<tr>
+			<td width="120px" id="thing3"></td>
+			<td width="120px" id="thing2"></td>
+			<td width="120px" id="thing1"></td>
+			</tr>
+			</table> 
+			--> 
+                    <a id="bury" href="#" onclick="game.bury()" style="text-align:center;color:#004126;font-weight:bold;text-decoration:none;display:block;border-radius:20px; background:#00d980;margin:20px auto;width:40%;font-size:30px;line-height:55px;display:block;color:white;">下葬</a> <br/>
+                    <br/>
+                    <br/>
+                    <br/></td>
+            </tr>
+        </table>
+        <div id="share">
+			<!-- 评论框 -->
+        </div>
+    </div>
+    <table id="vUIgame" style="margin:0 auto;" >
+        <tr>
+            <td width="250px;"><h2 style="color:#00d980;">轨迹</h2>
+                <div id="vUIgameLeft" style="border-left:3px #00d980 dashed; text-align:center;overflow:auto;height:500px;"> </div></td>
+            <td width="340px;"><table width="100%">
+                    <tr>
+                        <td><div class="aff_node" style="text-align:left;list-style-type:none;">
+                                <table width="100%">
+                                    <tr>
+                                        <td><div id="roleImg" style="margin:10px;background:url(http://666.msgjug.com/p_life/image/male.png) no-repeat;width:30px;height:80px;"></div></td>
+                                        <td> 姓名：<span id="gameRoleName"></span> <br />
+                                            <span id="gameRoleAge">0</span>岁 <br />
+                                            <span id="gameRoleSex"></span></td>
+                                    </tr>
+									<tr>
+										<td></td>
+										<!-- 成就显示 -->
+										<td id="goals" style="text-align:center;">
+										</td>
+									</tr>
+                                </table>
+                            </div></td>
+                    </tr>
+                    <!-- end of 人物资料 -->
+                    
+                    <tr>
+                        <td><div class="aff_node" style="text-align:center;list-style-type:none;">
+                                <table width="100%" >
+                                    <tr>
+                                        <td><div id="roleState" class="roleState" style="border-right:2px green dashed;">人物特点</div></td>
+                                        <td><div id="BGState" class="BGState" style="border-left:2px green dashed;">背景</div></td>
+                                    </tr>
+                                </table>
+                            </div></td>
+                    </tr>
+                    <!-- end of 状态 -->
+                    <tr>
+                        <td>
+						<div id="vUIgameRight" class="aff_node" style="display:none;">
+						</div>
+						<div id="vUIgameRight_newRole" class="aff_node" style="display:none;">
+                                <h2>新建角色</h2>
+                                <div style="text-align:left;padding-left:20px;"> 姓名: <span style="color:gray;">(长度 <= 8个字符)</span> 
+                                    <!--<input name="inputName" type="text" onkeyup="this.value=this.value.replace(/[/W]/g,'');limitLength(this,16)" /> -->
+                                    <input id="inputName" name="inputName" onkeyup="this.value=this.value.replace(/[/W]/g,'');" maxLength=8 />
+                                    <br/>
+                                    <br/>
+                                    性别：男
+                                    <input type="radio" checked="checked" name="Sex" value="male" />
+                                    女
+                                    <input type="radio" name="Sex" value="female" />
+                                    <br/>
+                                    <br/>
+                                    出生日期：
+                                    <select name="month">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                    </select>
+                                    月
+                                    
+                                    星座:<span id="xingzuo"></span> <br/>
+                                    <br/>
+                                    <!-- <textarea rows="3" cols="30">人物简介</textarea> --> 
+                                    <br/>
+                                    <br/>
+                                    <button onclick="newRole()" style="width:100px;height:50px;">确定</button>
+                                </div>
+                            </div></td>
+                    </tr>
+                </table></td>
+        </tr>
+    </table>
+    <div class="ad">
+        <table style="margin:0 auto;">
+            <tr>
+                <td>
+				<a href="http://pan.baidu.com/s/1dF4u2GT" onclick="_czc.push(['_trackEvent', '安卓APP', '点击', '进入网盘','1','adL']);" target="_blane"><img src="image/ad5.jpg" alt="游戏安卓版链接" width="49%"/></a>
+				<a href="https://shop68944558.taobao.com/" onclick="_czc.push(['_trackEvent', '广告', '点击', '右边广告','1','adR']);" target="_blane"> <img src="image/ad3.jpg" alt="用你的一元，支持我的网站。" width="49%"/> </a>
+				</td>
+            </tr>
+        </table>
+    </div>
+    
+    <!-- copyright;-->
+    <div class="copyright" >
+        <li style="color:#070"> *这是一个全靠玩家贡献内容的游戏，所有的随机事件，都是由玩家贡献。<br />
+            如果你有新奇的想法，精彩/逗比的故事，或者对游戏有什么看法/意见，请不要保留，<a style="color:#095;font-size:15px;font-weight:bold;" href="page_donate.html">点这里发给我们！</a></li>
+        <li>后台技术支持:<a href="http://www.fastdo.cc">FastDo</a></li>
+        <li>服务器支持:<a href="http://suncpp.com">suncpp.com</a></li>
+        <li>游戏主页:<a href="http://msgjug.com">msgjug</a></li>
+        逗比人生Doubi living Copyright(c) 2015-2018 WildPtr 保留所有权利 <br />
+        游戏内涉及的所有人物、事件、团体、国家等一切内容纯属虚构。<br />
+        <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1256035047'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/stat.php%3Fid%3D1256035047%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script> 
+    </div>
+</div>
+<!-- end of content --> 
+
+<!--
+<iframe style="position:absolute;bottom:0px;" scrolling="no" frameborder="0" height="75px" width="100%" src="http://msgjug.com/footer.html"></iframe>
+-->
+</body>
+</html>
+
+<!--
+/*
+.aff_node
+{
+	text-align:center;
+	color:#002c24;
+
+	padding:4px 0px;
+	width:90%;
+	background-color:#00d980;
+	border-radius:20px;
+	border:2px solid #58ff54;
+	box-shadow: 0px 10px 0px #00673d;
+	margin:5px auto 10px auto;
+}
+*/
+
+
+ -->
+ 
+ 
